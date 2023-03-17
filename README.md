@@ -442,51 +442,6 @@ pm2 delete [id]
   </TabItem>
 </Tabs>
 
-### 第七步：把你的钱包连接到Betanet
-
-[Connect to Sphinx 1.X with your wallet by clicking the button linked here](/Network/Endpoints#connect-wallet)
-
-### 第八步：从Betanet领水
-
-[Shardeum Twitter SHM Faucet Guide for Sphinx 1.X](/Faucet/Claim#shardeum-faucet-website)
-
-### 第九步：在validator中质押SHM
-
-### GUI
-
-启动验证器后，转到“设置”页面。你将被要求连接你的钱包：
-
-![connectWalletBetanet.jpg](https://docs.shardeum.org/assets/images/connectWalletBetanet-e844c33bd3f4aecae772648f1602a5c5.jpg)
-
-连接上钱包后，你会看到这个：
-
-![connectedWalletOptions.jpg](https://docs.shardeum.org/assets/images/connectedWalletOptions-e908b5e2929d1c594b87ccee93b0e1c2.jpg)
-
-添加质押时, 你会看到这个:
-
-![connectedWalletAddStake.jpg](https://docs.shardeum.org/assets/images/connectedWalletAddStake-bc1b9ab8875adcf3ca54a52f432dd4d4.jpg)
-
-```
--Stake Wallet Address [wallet connected]
--Nominee Public Key [filled in automatically while validator is running]
--Stake amount (SHM) [empty and is in units ether not wei]
-```
-
-本例填写了10个SHM代币进行质押。
-
-*建议每个validator节点仅质押10个SHM，因为为validator质押10个或更多SHM的奖励相同*
-
-
- 填写完所有字段后，单击“质押”按钮。
-
-你的钱包会要求你签署你的 SHM 交易股份。
-
-交易签署并完成后，您就成功抵押了您的 SHM 代币。
-  
-
- *如果您之前已经抵押，您可以“移除抵押”。但是，当您取消质押时，您将停止获得测试网 SHM 奖励*。
-
-  
   
 如果您看到您的验证器 IP 地址为“0.0.0.0”：
 
@@ -533,43 +488,6 @@ export APP_IP="EXTERNAL_IP"
 </Tabs>
 
 
-### CLI
-
-如果您无法访问Validator GUI的Web浏览器，您也可以从Validator CLI抵押和取消抵押。
-
-首先，在您的Validator CLI中设置您的私钥：
-
-
-*小心使用你的私钥。我们建议您使用仅包含测试网令牌的私钥以确保安全*。
-
-```shell
-export PRIV_KEY=<private_key>
-```
-
-通过运行以下命令确保您的私钥存储在您的 Validator CLI 中：
-
-
-```shell
-echo $PRIV_KEY
-```
-
-添加押注：
-
-```shell
-operator-cli stake 10
-```
-
-通过以下方式检查您的压注金额：
-
-```shell
-operator-cli stake_info <wallet_address>
-```
-
-删除押注：
-
-```shell
-operator-cli unstake
-```
 
 ## Validator
 
