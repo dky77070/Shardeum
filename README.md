@@ -159,10 +159,11 @@ docker --version
 
 ### 安装docker-compose
 
-Curl request docker-compose:
+用Curl下载docker-compose:
 
 <Tabs groupId="operating-systems">
   <TabItem value="linux" label="Linux" default>
+    Linux：
 
 ```shell
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -170,6 +171,7 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-
 
   </TabItem>
   <TabItem value="mac" label="Mac" default>
+    MacOS:
 
 ```shell
 brew install docker-compose
@@ -178,7 +180,7 @@ brew install docker-compose
    </TabItem>
 </Tabs>
 
-Setup permissions for docker-compose:
+为docker-compose设置可执行权限:
 
 <Tabs>
   <TabItem value="shell" label="Shell" default>
@@ -190,7 +192,7 @@ sudo chmod +x /usr/local/bin/docker-compose
   </TabItem>
 </Tabs>
 
-Check that docker-compose is working with (should return version 1.29.2 or higher):
+检查docker-compose是否正在使用:
 
 <Tabs>
   <TabItem value="shell" label="Shell" default>
@@ -202,13 +204,10 @@ docker-compose --version
   </TabItem>
 </Tabs>
 
-:::tip
-Shardeum Validator support on Windows will be coming in the future.
-:::
 
-## Step 2: Download and install validator
+## 第二步：下载安装验证器
 
-Run:
+运行:
 
 <Tabs>
   <TabItem value="shell" label="Shell" default>
@@ -220,78 +219,73 @@ curl -O https://gitlab.com/shardeum/validator/dashboard/-/raw/main/installer.sh 
   </TabItem>
 </Tabs>
 
-The terminal will ask questions about your setup settings.
+终端将询问有关您的设置设置的问题。
 
-Give permission to collect validator data for bug reporting:
+授予收集验证器数据以报告错误的权限：
 
 ```shell
 By running this installer, you agree to allow the Shardeum team to collect this data. (y/n)?:
 ```
 
-Enter y to setup the web based dashboard:
+输入y进入Web的仪表板：
 
 ```shell
 Do you want to run the web based Dashboard? (y/n): y
 ```
-
-Set a password for dashboard access:
+设置仪表板访问密码：
 
 ```shell
 Set the password to access the Dashboard:
 ```
 
-Add a custom session port for the web based dashboard or hit enter for port 8080:
+直接按Enter进入端口8080：
 
 ```shell
-Enter the port (1025-65536) to access the web based Dashboard (default 8080):
+Enter the port (1025-65536) to access the web based Dashboard (default 8080): 你的密码
 ```
 
-Set the first p2p port (default 9001):
+设置第一个p2p端口(默认9001)：
 
 ```shell
-This allows p2p communication between nodes. Enter the first port (1025-65536) for p2p communication (default 9001):
+此处按Enter键即可
 ```
 
-Set the second p2p port (default 10001):
+设置第二个p2p端口(默认10001)：
 
 ```shell
-Enter the second port (1025-65536) for p2p communication (default 10001):
+此处按Enter键即可
 ```
 
-Add a custom path or install to root:
+添加自定义路径或安装到根目录：
 
 ```shell
-What base directory should the node use (defaults to ~/.shardeum):
+此处按Enter键即可
 ```
 
-Wait for the installation process to complete.
+等待安装完成。
 
-:::caution
-If you are behind a router and you are using ports 9001 and 10001 for p2p communication,
-make sure ports 9001 and 10001, are forwarded (be careful doing this since it will modify your firewall):
+- 如果您在路由器后面并且您使用端口 9001 和 10001 进行 p2p 通信，请确保转发端口 9001 和 10001（小心这样做，因为它会修改您的防火墙）https://www.noip.com/support/knowledgebase/general-port-forwarding-guide/
 
-https://www.noip.com/support/knowledgebase/general-port-forwarding-guide/
-
-Reference:
+参考:
 
 https://gitlab.com/shardeum/validator/dashboard/
-:::
 
-## Step 3: Open validator CLI
 
-Make sure you are in the root directory by running:
+## 第三步：打开validator客户端：
+
+确保您在根路径：
 
 <Tabs>
   <TabItem value="shell" label="Shell" default>
 
 ```shell
-cd
+cd 
 ```
 
   </TabItem>
 </Tabs>
 
-Go to the hidden Shardeum directory:
+进入到.Shardeum隐藏文件夹:
 
 <Tabs>
   <TabItem value="shell" label="Shell" default>
@@ -303,7 +297,7 @@ cd .shardeum
   </TabItem>
 </Tabs>
 
-Start the CLI by running the following shell script:
+通过运行以下shell脚本启动Cli：
 
 <Tabs>
   <TabItem value="shell" label="Shell" default>
@@ -315,68 +309,13 @@ Start the CLI by running the following shell script:
   </TabItem>
 </Tabs>
 
-:::warning
-If you see docker container error:
 
-```golang
-Error response from daemon: Container <container_id_hexadecimal> is not running
-```
 
-start all docker containers until the errors go away:
 
-<Tabs>
-  <TabItem value="shell" label="Shell" default>
 
-```shell
-docker start <container_id_hexadecimal>
-```
+## 第四步： 打开validator GUI
 
-  </TabItem>
-</Tabs>
-:::
-
-:::warning
-If you see docker permission error:
-
-```golang
-Got permission denied while trying to connect to the Docker daemon socket at
-unix:///var/run/docker.sock:
-Get "http://%2Fvar%2Frun%2Fdocker.sock/v1.24/containers/shardeum-dashboard/json":
-dial unix /var/run/docker.sock:
-connect:
-permission denied
-```
-
-run:
-
-<Tabs>
-  <TabItem value="shell" label="Shell" default>
-
-```shell
-sudo usermod -a -G docker $USER && newgrp docker
-```
-
-  </TabItem>
-</Tabs>
-
-if that does not work, also try:
-
-<Tabs>
-  <TabItem value="shell" label="Shell" default>
-
-```shell
-sudo service docker start
-```
-
-  </TabItem>
-</Tabs>
-
-then try to start the shell script again.
-:::
-
-## Step 4: Open validator GUI
-
-While inside the shell script, run:
+在shell脚本中运行:
 
 <Tabs>
   <TabItem value="shell" label="Shell" default>
@@ -388,10 +327,11 @@ operator-cli gui start
   </TabItem>
 </Tabs>
 
-Go to your web browser and go to:
+打开你的浏览器访问:
 
 <Tabs groupId="validator-local-or-server">
   <TabItem value="local" label="Local" default>
+    本地：
 
 ```shell
 https://localhost:8080/
@@ -399,6 +339,7 @@ https://localhost:8080/
 
   </TabItem>
   <TabItem value="server" label="Server" default>
+    远程服务器：
 
 ```shell
 https://<server_ip>:8080/
@@ -408,12 +349,11 @@ https://<server_ip>:8080/
 </Tabs>
 
 
-:::caution
-You might see a warning page when trying to access this address in your web browser.
-Ignore this warning and continue to the validator dashboard. Another way to work around this warning:
+尝试在 Web 浏览器中访问此地址时，您可能会看到一个警告页面。忽略此警告并继续访问验证器仪表板。解决此警告的另一种方法：
 
 <Tabs>
   <TabItem value="firefox" label="Firefox" default>
+    火狐浏览器：
 
 ```
 From the three bar button (hamburger) menu button, go to Settings
@@ -434,6 +374,7 @@ Refresh the operator dashboard page and the certificate error should be gone.
 
   </TabItem>
   <TabItem value="chrome" label="Chrome" default>
+    谷歌浏览器：
 
 ```
 Click on the “Not secure” alert and select/click on “Certificate is not valid”.
@@ -474,21 +415,20 @@ When you have successfully restarted chrome, the operator dashboard will not sho
 
 </Tabs>
 
-:::
 
-You will be asked for your password set during setup.
+### 系统会要求您提供在安装过程中设置的密码。
 
-![loginPage.jpg](/img/node/run/validator/loginPage.jpg)
+![loginPage.jpg](	https://docs.shardeum.org/assets/images/loginPage-b0c8345bbfd71249dde4ace04fe4dd4d.jpg)
 
 :::danger
-The login will fail even if you put no password during the setup process.
-To set a new password inside the validator CLI:
+### 注意：如果您在设置过程中没有输入密码，登录也会失败。在验证器 CLI 中设置新密码：
+在validator CLI中设置密码:
 
 <Tabs>
   <TabItem value="shell" label="Shell" default>
 
 ```shell
-operator-cli gui set password <type_new_password__here>
+operator-cli gui set password <你的密码>
 ```
 
   </TabItem>
@@ -496,17 +436,18 @@ operator-cli gui set password <type_new_password__here>
 
 :::
 
-You should see the “Overview” page for the Shardeum Validator Dashboard in your web browser:
+你应该会在 Web 浏览器中看到 Shardeum 验证器仪表板的“概述”页面：
 
-![overviewBetanet.jpg](/img/node/run/validator/overviewBetanet.jpg)
 
-## Step 5: Start validator
+![overviewBetanet.jpg](	https://docs.shardeum.org/assets/images/overviewBetanet-ab6f21beccb631a1fb4a82930b95b102.jpg)
 
-Go to the “Maintenance” page, then click the “Start Node” button in the top left white box:
+## 第五步：启动
 
-![startBetanet.jpg](/img/node/run/validator/startBetanet.jpg)
+进入“Maintenance”页面,然后点击左上角白框的“Start Node”按钮：
 
-(Same as running)
+![startBetanet.jpg](https://docs.shardeum.org/assets/images/startBetanet-30512f936b2c976db151e6aea9361704.jpg)
+
+(运行界面像这样)
 
 <Tabs>
   <TabItem value="shell" label="Shell" default>
@@ -518,9 +459,9 @@ operator-cli start
   </TabItem>
 </Tabs>
 
-Wait and refresh the page.
+等待并刷新页面。
 
-The node is running correctly if the “Start Node” button now says “Stop Node”. If you want to stop tne node with the CLI:
+如果“Start Node”按钮现在显示为“Stop Node”，则节点运行正常。如果要使用CLI停止节点：
 
 <Tabs>
   <TabItem value="shell" label="Shell" default>
@@ -532,15 +473,15 @@ operator-cli stop
   </TabItem>
 </Tabs>
 
-![startedBetanet.jpg](/img/node/run/validator/startedBetanet.jpg)
+![startedBetanet.jpg](https://docs.shardeum.org/assets/images/startedBetanet-d4270a56e8d10fa33e85947984929a3b.jpg)
 
-## Step 6: Monitor validator
+## 第六步：监控validator
 
-Go to “Performance” to see your node’s hardware performance here:
+去“Performance”页面查看节点的硬件性能:
 
-![performanceBetanet.jpg](/img/node/run/validator/performanceBetanet.jpg)
+![performanceBetanet.jpg](https://docs.shardeum.org/assets/images/startedBetanet-d4270a56e8d10fa33e85947984929a3b.jpg)
 
-For more details about your node status run the following inside the CLI:
+有关节点状态的更多详细信息，请在CLI中运行以下命令：
 
 <Tabs>
   <TabItem value="shell" label="Shell" default>
@@ -552,10 +493,6 @@ operator-cli status
   </TabItem>
 </Tabs>
 
-:::danger
-If your node becomes inactive, try checking its status.
-:::
-
 <Tabs>
   <TabItem value="shell" label="Shell" default>
 
@@ -566,7 +503,7 @@ pm2 list
   </TabItem>
 </Tabs>
 
-Reset the validator from the list by running:
+通过运行以下命令从列表中重置validator:
 
 <Tabs>
   <TabItem value="shell" label="Shell" default>
@@ -578,29 +515,29 @@ pm2 delete [id]
   </TabItem>
 </Tabs>
 
-## Step 7: Connect Wallet to Betanet
+## 第七步：把你的钱包连接到Betanet
 
 [Connect to Sphinx 1.X with your wallet by clicking the button linked here](/Network/Endpoints#connect-wallet)
 
-## Step 8: Get SHM from Betanet Faucet
+## 第八步：从Betanet领水
 
 [Shardeum Twitter SHM Faucet Guide for Sphinx 1.X](/Faucet/Claim#shardeum-faucet-website)
 
-## Step 9: Stake SHM to validator
+## 第九步：在validator中质押SHM
 
 ### GUI
 
-After you start the validator, go to the “Settings” page. You will be asked to connect your wallet:
+启动验证器后，转到“设置”页面。你将被要求连接你的钱包：
 
-![connectWalletBetanet.jpg](/img/node/run/validator/connectWalletBetanet.jpg)
+![connectWalletBetanet.jpg](https://docs.shardeum.org/assets/images/connectWalletBetanet-e844c33bd3f4aecae772648f1602a5c5.jpg)
 
-After you connect your wallet, you should see the following:
+连接上钱包后，你会看到这个：
 
-![connectedWalletOptions.jpg](/img/node/run/validator/connectedWalletOptions.jpg)
+![connectedWalletOptions.jpg](https://docs.shardeum.org/assets/images/connectedWalletOptions-e908b5e2929d1c594b87ccee93b0e1c2.jpg)
 
-When you click "Add Stake", you will see the following:
+添加质押时, 你会看到这个:
 
-![connectedWalletAddStake.jpg](/img/node/run/validator/connectedWalletAddStake.jpg)
+![connectedWalletAddStake.jpg](https://docs.shardeum.org/assets/images/connectedWalletAddStake-bc1b9ab8875adcf3ca54a52f432dd4d4.jpg)
 
 ```
 -Stake Wallet Address [wallet connected]
@@ -608,35 +545,25 @@ When you click "Add Stake", you will see the following:
 -Stake amount (SHM) [empty and is in units ether not wei]
 ```
 
-This example has filled in 10 SHM tokens to stake.
+本例填写了10个SHM代币进行质押。
 
-:::tip
-It is recommended to stake just 10 SHM per Validator node, 
-since rewards will be the same with 10 SHM or more staked for a Validator. 
-:::
+*建议每个validator节点仅质押10个SHM，因为为validator质押10个或更多SHM的奖励相同*
 
-Once all fields are filled, click the “Stake” button.
 
-Your wallet will ask you to sign the transaction stake your SHM.
+ 填写完所有字段后，单击“质押”按钮。
 
-Once the transaction is signed and complete, you have staked your SHM tokens successfully.
+你的钱包会要求你签署你的 SHM 交易股份。
 
-:::info
-If your node status is on Standby and you have 10 SHM or more staked, your validator node is setup correctly.
+交易签署并完成后，您就成功抵押了您的 SHM 代币。
+  
 
-The network will automatically add your validator to be active in the network.
+ *如果您之前已经抵押，您可以“移除抵押”。但是，当您取消质押时，您将停止获得测试网 SHM 奖励*。
 
-The time to be added as an active validator will vary based on network load and validators in the network.
-:::
+  
+  
+如果您看到您的验证器 IP 地址为“0.0.0.0”：
 
-:::caution
-If you have staked before, you can "Remove Stake". However, you will stop getting testnet SHM rewards when you unstake.
-:::
-
-:::danger
-If you see your validator IP address as "0.0.0.0":
-
-Go into the operator dashboard docker (may be different if you customized install location:
+进入docker操作面板（如果您自定义安装位置，可能会有所不同）：
 
 <Tabs>
   <TabItem value="shell" label="Shell" default>
@@ -650,7 +577,7 @@ cd ~/.shardeum
 
 </Tabs>
 
-Get your node's external IP:
+获取节点的外部IP：
 
 <Tabs>
   <TabItem value="shell" label="Shell" default>
@@ -663,9 +590,9 @@ curl https://ipinfo.io/ip
 
 </Tabs>
 
-The returned IP in the format of nnn.nnn.nnn.nnn is your EXTERNAL_IP.
+返回的IP格式为xxx.xxx.xxx.xxx就是你的EXTERNAL_IP。
 
-Set the number above in place of EXTERNAL_IP:
+设置上面的数字代替 EXTERNAL_IP：
 
 <Tabs>
   <TabItem value="shell" label="Shell" default>
@@ -678,18 +605,16 @@ export APP_IP="EXTERNAL_IP"
 
 </Tabs>
 
-:::
 
 ### CLI
 
-You can also stake and unstake from the Validator CLI if you are not able to access a web browser for the Validator GUI.
+如果您无法访问Validator GUI的Web浏览器，您也可以从Validator CLI抵押和取消抵押。
 
-First, set your private key in your Validator CLI:
+首先，在您的Validator CLI中设置您的私钥：
 
-:::warning
-Be very careful with your private keys. We recommend you use a private key which has testnet tokens only to be safe.
-:::
-
+---
+*小心使用您的私钥。我们建议您使用仅包含测试网令牌的私钥以确保安全*。
+---
 ```shell
 export PRIV_KEY=<private_key>
 ```
