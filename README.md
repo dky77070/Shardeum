@@ -1,7 +1,7 @@
 
 ## Shardeum介绍
 
-Shardeum是基于EVM的L1，它使用动态分片来实现线性可扩展性，同时实现跨分片的原子可组合性。这意味着 Shardeum可以通过将每个验证器添加到网络来增加其TPS容量，以永远保持低费用。Shardeum提供了任何基于EVM的L1的最高吞吐量，而不会牺牲去中心化。开发人员可以部署 Solidity 或 Vyper 合约并与之交互，而无需特别考虑分片，因为合约会自动部署到唯一的分片，同时保留所有分片的原子可组合性。视频地址："https://drive.google.com/file/d/1mSSuEuqU1JnKAXU8Omy-WpBEV5Q_Uf08/preview"
+Shardeum是基于EVM的L1，它使用动态分片来实现线性可扩展性，同时实现跨分片的原子可组合性。这意味着 Shardeum可以通过将每个Validator添加到网络来增加其TPS容量，以永远保持低费用。Shardeum提供了任何基于EVM的L1的最高吞吐量，而不会牺牲去中心化。开发人员可以部署 Solidity 或 Vyper 合约并与之交互，而无需特别考虑分片，因为合约会自动部署到唯一的分片，同时保留所有分片的原子可组合性。视频地址："https://drive.google.com/file/d/1mSSuEuqU1JnKAXU8Omy-WpBEV5Q_Uf08/preview"
 
 ---
 
@@ -24,7 +24,7 @@ EVM是以太坊虚拟机的简称。让我们从简单的语言开始介绍虚�
 
 块在Shardeum中的工作方式不同，因为交易是单独处理的，而不是分组到块中。但是，仍然需要以特定的时间间隔生成块来支持现有的智能合约，这些智能合约使用与块相关的操作码并符合JSON RPC规范。
 
-Shardeum使用称为周期的生命周期来安排验证器轮换和许多其他操作。例如，一个循环可能需要60秒，为每个循环生成一个循环记录。在Shardeum 中，块号与循环生产率相关联。Shardeum决定每个周期生成10个区块。如果循环持续时间为60秒，则每6秒生成一个新块，每个循环产生10个块。
+Shardeum使用称为周期的生命周期来安排Validator轮换和许多其他操作。例如，一个循环可能需要60秒，为每个循环生成一个循环记录。在Shardeum 中，块号与循环生产率相关联。Shardeum决定每个周期生成10个区块。如果循环持续时间为60秒，则每6秒生成一个新块，每个循环产生10个块。
 
 事务的时间戳通过确定性地将时间戳映射到块号来选择合适的块。如果注入的交易没有时间戳，网络将为交易确定时间戳并选择正确的块。区块信息将与交易参数一起输入EVM。
 
@@ -80,7 +80,7 @@ sudo apt-get install curl
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
     
-将Homebrew添加到您的PATH(MacOS):
+将Homebrew添加到你的PATH(MacOS):
     
 ```shell
 echo 'eval "$(/opt/homebrew/bin/brew shellenv)"'
@@ -93,7 +93,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 ### 更新工具包
 
-首先确保您的下载工具是最新的：
+首先确保你的下载工具是最新的：
 
 
 <Tabs groupId="operating-systems">
@@ -199,7 +199,7 @@ docker-compose --version
 </Tabs>
 
 
-### 第二步：下载安装验证器
+### 第二步：下载安装Validator
 
 
 <Tabs>
@@ -212,9 +212,9 @@ curl -O https://gitlab.com/shardeum/validator/dashboard/-/raw/main/installer.sh 
   </TabItem>
 </Tabs>
 
-终端将询问有关您的设置设置的问题。
+终端将询问有关你的设置设置的问题。
 
-授予收集验证器数据以报告错误的权限：
+授予收集Validator数据以报告错误的权限：
 
 ```shell
 By running this installer, you agree to allow the Shardeum team to collect this data. (y/n)?:
@@ -257,7 +257,7 @@ Enter the port (1025-65536) to access the web based Dashboard (default 8080): �
 
 等待安装完成。
 
-- 如果您在路由器后面并且您使用端口 9001 和 10001 进行 p2p 通信，请确保转发端口 9001 和 10001（小心这样做，因为它会修改您的防火墙）https://www.noip.com/support/knowledgebase/general-port-forwarding-guide/
+- 如果你在路由器后面并且使用端口9001和10001进行p2p通信，请确保转发端口9001和10001（小心这样做，因为它会修改您的防火墙）https://www.noip.com/support/knowledgebase/general-port-forwarding-guide/
 
 参考:
 
@@ -266,7 +266,7 @@ https://gitlab.com/shardeum/validator/dashboard/
 
 ### 第三步：打开validator客户端：
 
-确保您在根路径：
+确保你在根路径：
 
 <Tabs>
   <TabItem value="shell" label="Shell" default>
@@ -343,12 +343,13 @@ https://<server_ip>:8080/
 
 
 
-### 系统会要求您提供在安装过程中设置的密码。
+### 系统会要求你提供在安装过程中设置的密码。
 
 ![loginPage.jpg](	https://docs.shardeum.org/assets/images/loginPage-b0c8345bbfd71249dde4ace04fe4dd4d.jpg)
 
-  
-### 注意：如果您在设置过程中没有输入密码，登录也会失败。在验证器 CLI 中设置新密码：
+```json
+如果你在设置过程中没有输入密码，登录也会失败。
+```
 在validator CLI中设置密码:
 
 <Tabs>
@@ -363,7 +364,7 @@ operator-cli gui set password <你的密码>
 
 
 
-你应该会在 Web 浏览器中看到 Shardeum 验证器仪表板的“概述”页面：
+你应该会在 Web 浏览器中看到 Shardeum Validator仪表板的“概述”页面：
 
 
 ![overviewBetanet.jpg](	https://docs.shardeum.org/assets/images/overviewBetanet-ab6f21beccb631a1fb4a82930b95b102.jpg)
@@ -443,9 +444,9 @@ pm2 delete [id]
 </Tabs>
 
   
-如果您看到您的验证器 IP 地址为“0.0.0.0”：
+如果你看到Validator IP地址为“0.0.0.0”：
 
-进入docker操作面板（如果您自定义安装位置，可能会有所不同）：
+进入docker操作面板（如果是自定义安装位置，会有所不同）：
 
 <Tabs>
   <TabItem value="shell" label="Shell" default>
@@ -617,18 +618,21 @@ operator-cli help
 
 ## 卸载Validator
 
-如果您的Validator已过时并且您想清理上次安装，
+如果你的Validator已过时并且想清理上次安装，
 
-您可以在根目录中删除Validator文件夹：
+可以在根目录中删除Validator文件夹：
   
 ```shell
 rm -rf .shardeum
 ```
 
-您还可以删除Shardeum验证器使用的docker容器和图像。
+还可以删除Shardeum Validator使用的docker容器和图像。
 
   
-*这些命令将删除您计算机上的所有 docker 图像和容器*！
+```json
+   这些命令将删除计算机上的所有docker图像和容器！
+``` 
+
 
 删除所有 docker 容器：
 
