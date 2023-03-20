@@ -341,9 +341,62 @@ https://<server_ip>:8080/
 
   </TabItem>
 </Tabs>
+---
+###  当你尝试在网络浏览器中访问此地址时，您可能会看到一个警告页面。忽略此警告并继续访问验证器仪表板。解决此警告的另一种方法：
+火狐浏览器：
+  ```shell
+  从三栏按钮（hamburger）菜单按钮，转到设置
 
+单击左侧的“隐私和安全”。
 
+向下滚动以找到“查看证书”并单击该按钮。
 
+单击“服务器”选项卡，然后单击“添加例外”。
+
+输入：“https://localhost:8080”（或您的远程/VPS 服务器的 IP 和端口），
+然后单击“获取证书”，然后单击“确认安全异常”。
+
+结果应该是列表中的服务器/本地主机，单击“确定”。
+
+刷新操作员仪表板页面，证书错误应该消失了。
+  ```
+  
+ chrome:
+  ```shell
+  单击“不安全”警报并选择/单击“证书无效”。
+
+单击“详细信息”选项卡，然后单击“证书层次结构”框中的“本地主机”，然后单击“导出”按钮。
+
+单击“详细信息”选项卡，然后单击
+“证书层次结构”框中的“mynode-sphinx.shardeum.local”，然后单击“导出”按钮。
+
+上述步骤的结果是两个证书文件保存在一个位置，将在以下步骤中使用。
+
+在地址栏中输入：chrome://settings，回车。
+
+单击左侧菜单中的“隐私和安全”。 然后从主窗口的列表中单击“安全”。
+
+向下滚动以在主窗口中找到“管理设备证书”并选择它。
+
+单击“导入”按钮。
+
+按照导入提示进行操作。
+
+将“mynode-sphinx.shardeum.local.crt”放在“Trusted Root Cert…Auth..”文件夹中。
+
+单击“是”，然后单击“确定”。
+
+再次单击“导入”。
+
+然后按照导入提示进行操作。
+
+将“localhost.crt”放在“个人”文件夹中。
+
+关闭所有 Chrome 窗口（如退出 Chrome）。
+
+成功重启 chrome 后，操作员仪表板将不会显示为白色锁。
+  ```
+---
 ### 系统会要求你提供在安装过程中设置的密码。
 
 ![loginPage.jpg](	https://docs.shardeum.org/assets/images/loginPage-b0c8345bbfd71249dde4ace04fe4dd4d.jpg)
@@ -443,7 +496,20 @@ pm2 delete [id]
 
   </TabItem>
 </Tabs>
+  
+### 第七步：连接钱包/质押
+ 启动验证器后，转到“设置”页面。你将被要求连接你的钱包：
+ ![performanceBetanet.jpg](https://docs.shardeum.org/assets/images/connectWalletBetanet-e844c33bd3f4aecae772648f1602a5c5.jpg)
 
+  连接钱包后，会看到以下内容：
+  ![performanceBetanet.jpg](https://docs.shardeum.org/assets/images/connectedWalletOptions-e908b5e2929d1c594b87ccee93b0e1c2.jpg)
+  
+当你点击“添加质押”时，会看到以下内容：
+  ![performanceBetanet.jpg](https://docs.shardeum.org/assets/images/connectedWalletAddStake-bc1b9ab8875adcf3ca54a52f432dd4d4.jpg) 
+  
+  本例填写了 10 个 SHM 代币进行质押。
+
+*建议每个验证者节点仅质押10个SHM，因为为验证者质押10个或更多SHM的奖励将相同*。
   
 如果你看到Validator IP地址为“0.0.0.0”：
 
