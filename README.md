@@ -20,30 +20,6 @@ EVM是以太坊虚拟机的简称。让我们从简单的语言开始介绍虚�
 
 ---
 
-## Shardeum操作码
-
-区块在Shardeum中的工作方式不同，因为交易是单独处理的，而不是分组到区块中。但是，仍然需要以特定的时间间隔生成区块来支持现有的智能合约，这些智能合约使用与区块相关的操作码并符合JSON RPC规范。
-
-Shardeum使用称为周期的生命周期来安排Validator轮换和许多其他操作。例如，一个循环可能需要60秒，为每个循环生成一个循环记录。在Shardeum 中，区块号与循环生产率相关联。Shardeum决定每个周期生成10个区块。如果循环持续时间为60秒，则每6秒生成一个新区块，每个循环产生10个区块。
-
-事务的时间戳通过确定性地将时间戳映射到区块号来选择合适的区块。如果注入的交易没有时间戳，网络将为交易确定时间戳并选择正确的区块。区块信息将与交易参数一起输入EVM。
-
-Shardeum公开了与区块相关的公共API端点，因此JSON RPC服务器可以使用与网络相同的区块信息。
-
-## Block Related Opcodes
-
-| **Stack** 	| **Name**   	| **Supported** 	| **Notes**                                                                                                                        	|
-|-----------	|------------	|---------------	|----------------------------------------------------------------------------------------------------------------------------------	|
-| 40        	| BLOCKHASH  	| Supported     	| Hash of the specific block, only valid for the 256 most recent blocks, excluding the current one                                 	|
-| 41        	| COINBASE   	| Supported     	| Return network account address because there is no block miner in Shardeum                                                       	|
-| 42        	| TIMESTAMP  	| Supported     	| Return network account address because there is no block miner in Shardeum                                                       	|
-| 43        	| NUMBER     	| Supported     	| Current block's number                                                                                                           	|
-| 44        	| DIFFICULTY 	| Supported     	| Current block's difficulty. Since Shardeum does not use Proof of Work for transaction consensus the difficulty value is set to 0 	|
-| 45        	| GASLIMIT   	| Supported     	| Current block's gas limit                                                                                                        	|
-| 46        	| CHAINID    	| Supported     	| Current network's chain id: 8080                                                                                                 	|
-| 48        	| BASEFEE    	| EIP-1559      	| London hardfork, EIP-3198: Current block's base fee                                                                              	|
----
-
 ## 部署
 
 
@@ -307,7 +283,7 @@ cd .shardeum
 
 
 
-### 第四步： 打开validator GUI
+### 第四步： 打开Validator GUI
 
 在shell脚本中运行:
 
@@ -341,11 +317,11 @@ https://<server_ip>:8080/
 
   </TabItem>
 </Tabs>
----
-###  当你尝试在网络浏览器中访问此地址时，您可能会看到一个警告页面。忽略此警告并继续访问验证器仪表板。解决此警告的另一种方法：
+
+###  当你尝试在网络浏览器中访问此地址时，您可能会看到一个警告页面。忽略此警告并继续访问。解决此警告的另一种方法：
 火狐浏览器：
   ```shell
-  从三栏按钮（hamburger）菜单按钮，转到设置
+进入浏览器设置
 
 单击左侧的“隐私和安全”。
 
@@ -359,10 +335,13 @@ https://<server_ip>:8080/
 结果应该是列表中的服务器/本地主机，单击“确定”。
 
 刷新操作员仪表板页面，证书错误应该消失了。
+ 
   ```
   
- chrome:
+ Chrome:
+  
   ```shell
+  
   单击“不安全”警报并选择/单击“证书无效”。
 
 单击“详细信息”选项卡，然后单击“证书层次结构”框中的“本地主机”，然后单击“导出”按钮。
@@ -392,11 +371,13 @@ https://<server_ip>:8080/
 
 将“localhost.crt”放在“个人”文件夹中。
 
-关闭所有 Chrome 窗口（如退出 Chrome）。
+关闭所有Chrome窗口（如退出 Chrome）。
 
-成功重启 chrome 后，操作员仪表板将不会显示为白色锁。
+成功重启Chrome后，操作员仪表板将不会显示为白色锁。
+  
   ```
 ---
+  
 ### 系统会要求你提供在安装过程中设置的密码。
 
 ![loginPage.jpg](	https://docs.shardeum.org/assets/images/loginPage-b0c8345bbfd71249dde4ace04fe4dd4d.jpg)
@@ -498,7 +479,7 @@ pm2 delete [id]
 </Tabs>
   
 ### 第七步：连接钱包/质押
- 启动验证器后，转到“设置”页面。你将被要求连接你的钱包：
+ 启动Validator后，转到“设置”页面。你将被要求连接你的钱包：
  ![performanceBetanet.jpg](https://docs.shardeum.org/assets/images/connectWalletBetanet-e844c33bd3f4aecae772648f1602a5c5.jpg)
 
   连接钱包后，会看到以下内容：
@@ -509,7 +490,7 @@ pm2 delete [id]
   
   本例填写了 10 个 SHM 代币进行质押。
 
-*建议每个验证者节点仅质押10个SHM，因为为验证者质押10个或更多SHM的奖励将相同*。
+*建议每个Validator节点仅质押10个SHM，因为Validator质押10个或更多SHM的奖励将相同*。
   
 如果你看到Validator IP地址为“0.0.0.0”：
 
